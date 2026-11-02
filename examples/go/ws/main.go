@@ -48,19 +48,17 @@ func main() {
 				Type string `json:"type"`
 			}
 			if json.Unmarshal(raw, &msg) == nil && msg.Type == "welcome" {
-				sub := map[string]any{
-					"type": "subscribe",
-					"topics": []string{
-						"quote.CR.BTCUSDT",
-						"depth.CR.BTCUSDT",
-						"candle.CR.BTCUSDT.1m",
-						"trade.CR.ETHUSDT",
-					},
-					"request_id": "r1",
+				subs := []map[string]any{
+					{"type": "subscribe", "topics": []string{"quote.CR.BTCUSDT"}, "request_id": "q1"},
+					{"type": "subscribe", "topics": []string{"depth.CR.BTCUSDT"}, "request_id": "d1"},
+					{"type": "subscribe", "topics": []string{"candle.CR.BTCUSDT.1m"}, "request_id": "c1"},
+					{"type": "subscribe", "topics": []string{"trade.CR.BTCUSDT"}, "request_id": "t1"},
 				}
-				if err := writeJSON(sub); err != nil {
-					fmt.Println("subscribe", err)
-					return
+				for _, sub := range subs {
+					if err := writeJSON(sub); err != nil {
+						fmt.Println("subscribe", err)
+						return
+					}
 				}
 			}
 		}

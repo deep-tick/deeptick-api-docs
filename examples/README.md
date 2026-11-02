@@ -55,4 +55,4 @@ node nodejs/rest_example.mjs
 node nodejs/websocket_example.mjs
 ```
 
-REST 示例依次请求：服务器时间、报价、盘口、最近成交、K 线、标的列表。WebSocket 示例在收到 `welcome` 后订阅报价、盘口、K 线和成交，并按 30 秒发送 `ping`。按 Ctrl+C 结束。
+REST 示例依次请求：服务器时间、报价、盘口、最近成交、K 线、标的列表。WebSocket 示例在收到 `welcome` 后，按类型各发一条 `subscribe`（报价、盘口、K 线、成交），并按 30 秒发送 `ping`。一次把多种类型写进同一条会整批返回 `4001`。示例标的是免费套餐可请求的 `BTCUSDT.CR`。按 Ctrl+C 结束。

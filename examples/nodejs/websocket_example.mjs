@@ -14,11 +14,11 @@ const url = new URL("wss://api.deeptick.cc/ws/v1");
 url.searchParams.set("deeptoken", token);
 const ws = new WebSocket(url);
 
-const topics = [
-  "quote.CR.BTCUSDT",
-  "depth.CR.BTCUSDT",
-  "candle.CR.BTCUSDT.1m",
-  "trade.CR.ETHUSDT",
+const subscriptions = [
+  { topics: ["quote.CR.BTCUSDT"], request_id: "q1" },
+  { topics: ["depth.CR.BTCUSDT"], request_id: "d1" },
+  { topics: ["candle.CR.BTCUSDT.1m"], request_id: "c1" },
+  { topics: ["trade.CR.BTCUSDT"], request_id: "t1" },
 ];
 
 ws.addEventListener("open", () => {
@@ -39,11 +39,9 @@ ws.addEventListener("message", (event) => {
   console.log(text);
   const msg = JSON.parse(text);
   if (msg.type === "welcome") {
-    ws.send(JSON.stringify({
-      type: "subscribe",
-      topics,
-      request_id: "r1",
-    }));
+    for (const sub of subscriptions) {
+      ws.send(JSON.stringify({ type: "subscribe", ...sub }));
+    }
   }
 });
 

@@ -823,15 +823,12 @@ wss://api.deeptick.cc/ws/v1
 
 #### 请求消息
 
+一次请求里的 Topic 必须是同一种类型，例如全部是 `quote`。`quote` 和 `depth` 写在同一条里会整批返回 `4001`，需要分成两条发送。
+
 ```json
 {
   "type": "subscribe",
-  "topics": [
-    "quote.CR.BTCUSDT",
-    "depth.US.AAPL",
-    "candle.CN.600519.SH.1m",
-    "tick.HK.00700"
-  ],
+  "topics": ["quote.CR.BTCUSDT", "quote.US.AAPL"],
   "request_id": "r1"
 }
 ```
@@ -839,14 +836,14 @@ wss://api.deeptick.cc/ws/v1
 | 字段 | 类型 | 必填 | 说明 |
 |------|------|------|------|
 | `type` | String | 是 | `"subscribe"` 或 `"batch_subscribe"` |
-| `topics` | Array<String> | 是 | Topic 列表，单次最多 100 个，超限整体拒绝 `4001` |
+| `topics` | Array<String> | 是 | Topic 列表。单次最多 100 个，且必须是同一种类型。超限或混类型整批拒绝 `4001` |
 | `request_id` | String | 否 | 客户端自定义请求标识，用于匹配 ack |
 
 #### 限制
 
 | 限制项 | 值 | 超限错误码 |
 |--------|-----|------------|
-| 单次订阅上限 | 100 topic/次 | `4001`（整体拒绝） |
+| 单次订阅上限 | 100 topic/次，且同一种类型 | `4001`（整体拒绝） |
 | 单连接订阅上限 | 400 topic | `4003` |
 | 套餐订阅总量 | FREE 10，BASE 100，PRO 500，PREMIUM 2000 | `3002` |
 
@@ -858,8 +855,8 @@ wss://api.deeptick.cc/ws/v1
   "op": "subscribe",
   "status": "ok",
   "request_id": "r1",
-  "accepted": ["quote.CR.BTCUSDT", "depth.US.AAPL"],
-  "rejected": ["candle.CN.600519.SH.9m:4001"],
+  "accepted": ["quote.CR.BTCUSDT", "quote.US.AAPL"],
+  "rejected": ["quote.XX.NOPE:4004"],
   "removed": [],
   "ignored": [],
   "active_topics": 2,
@@ -881,7 +878,7 @@ wss://api.deeptick.cc/ws/v1
 
 #### 部分成功机制
 
-- 支持**部分成功**：`accepted` 为成功列表，`rejected` 条目格式为 `topic:错误码`，不会整体失败。
+- 支持**部分成功**：`accepted` 为成功列表，`rejected` 条目格式为 `topic:错误码`，不会整体失败。混用多种行情类型不属于部分成功，整批返回 `4001`。
 - 重复订阅**幂等成功**（计入 `accepted`，不重复扣配额）。
 - 某个标的第一次被订阅时，服务端会向行情源建立订阅，随后开始推送。同一标的已经在推送时，再次订阅直接成功。
 
@@ -1326,7 +1323,7 @@ FREE 只能请求下表 6 个标的（REST 与 WebSocket 相同）。其他品�
 | WS 并发连接 | `3003` | 达到套餐连接数后拒绝，并立即关闭 |
 | 订阅总量 | `3002` | 达到套餐订阅上限 |
 | 单连接上限 | `4003` | 单连接最多 400 个 Topic，与套餐无关 |
-| 单次订阅上限 | `4001` | 一次最多 100 个 Topic，超出则本次整体拒绝 |
+| 单次订阅上限 | `4001` | 一次最多 100 个 Topic，且必须同一种类型。超出或混类型则本次整体拒绝 |
 
 连接关闭后释放占用的连接数。
 
@@ -1377,7 +1374,7 @@ FREE 只能请求下表 6 个标的（REST 与 WebSocket 相同）。其他品�
 
 | code | HTTP 状态码 | 语义说明 | 触发场景 |
 |------|------------|----------|----------|
-| 4001 | 400 | 订阅 Topic 格式错误 | TopicParser 校验失败 / 单次订阅超 100 |
+| 4001 | 400 | 订阅 Topic 无效 | 格式错误、单次超过 100 个，或同一次混了多种行情类型。混类型时整批拒绝 |
 | 4002 | 403 | 无权限订阅该 Topic | 无权限，或 FREE 请求了未开放标的 |
 | 4003 | 400 | 单连接订阅数超 400 | 超出 `max-topics-per-connection` |
 | 4004 | 404 | Topic 对应标的不存在或当前不可订阅 | 该标的当前不能订阅；写入 `rejected` 为 `topic:4004` |

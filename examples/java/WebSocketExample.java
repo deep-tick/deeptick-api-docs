@@ -14,8 +14,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class WebSocketExample {
     static final String TOKEN = System.getenv().getOrDefault("DEEPTICK_TOKEN", "your_api_key");
-    static final String SUBSCRIBE =
-            "{\"type\":\"subscribe\",\"topics\":[\"quote.CR.BTCUSDT\",\"depth.CR.BTCUSDT\",\"candle.CR.BTCUSDT.1m\",\"trade.CR.ETHUSDT\"],\"request_id\":\"r1\"}";
+    static final String[] SUBSCRIBE = {
+            "{\"type\":\"subscribe\",\"topics\":[\"quote.CR.BTCUSDT\"],\"request_id\":\"q1\"}",
+            "{\"type\":\"subscribe\",\"topics\":[\"depth.CR.BTCUSDT\"],\"request_id\":\"d1\"}",
+            "{\"type\":\"subscribe\",\"topics\":[\"candle.CR.BTCUSDT.1m\"],\"request_id\":\"c1\"}",
+            "{\"type\":\"subscribe\",\"topics\":[\"trade.CR.BTCUSDT\"],\"request_id\":\"t1\"}"
+    };
 
     public static void main(String[] args) throws Exception {
         CountDownLatch done = new CountDownLatch(1);
@@ -40,8 +44,10 @@ public class WebSocketExample {
                     String msg = buf.toString();
                     buf.setLength(0);
                     System.out.println(msg);
-                    if (msg.contains("\"welcome\"")) {
-                        ws.sendText(SUBSCRIBE, true);
+                    if (msg.contains("\"type\":\"welcome\"")) {
+                        for (String sub : SUBSCRIBE) {
+                            ws.sendText(sub, true);
+                        }
                     }
                 }
                 ws.request(1);

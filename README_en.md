@@ -96,8 +96,10 @@ Candle intervals: `1m` `5m` `15m` `30m` `60m` `4h` `1d` `1w` `1M`.
 
 Wait for `welcome`, then subscribe. Send `ping` about every 30 seconds. A connection with no client messages for about 60 seconds is closed.
 
+One `subscribe` can contain only one type. This message subscribes to quotes. Send the book, candles, and prints as separate messages. Mixing types in one message returns `4001` for the whole batch.
+
 ```json
-{"type":"subscribe","topics":["quote.CR.BTCUSDT","depth.US.AAPL","candle.CN.600519.SH.1m"],"request_id":"r1"}
+{"type":"subscribe","topics":["quote.CR.BTCUSDT","quote.US.AAPL"],"request_id":"r1"}
 ```
 
 ```json
@@ -133,6 +135,6 @@ python examples/python/websocket_example.py
 - A missing or invalid key returns `1001`. The header name is `deeptoken`, and the value is the full key from the console.
 - `/api/v1/quote` accepts one symbol. More than one returns `8005`. Order book and trades use `symbol`. Quotes and candles use `symbols`.
 - Quotes have no bid or ask. The book is `/api/v1/orderbook`.
-- Quotas follow the plan. Error codes are in [chapter 7](./Deeptick行情API文档.md).
+- Quotas are in [chapter 7](./Deeptick行情API文档.md). Error codes are in chapter 8. One subscribe accepts a single topic type.
 
 Fields, error codes, and quotas follow this document and the website console. The public document covers the customer API only. Plan limits follow the plans shown in the console.

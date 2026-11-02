@@ -134,16 +134,19 @@ while (true) {
         echo $msg, "\n";
         $decoded = json_decode($msg, true);
         if (!$subscribed && ($decoded['type'] ?? '') === 'welcome') {
-            ws_send($fp, json_encode([
-                'type' => 'subscribe',
-                'topics' => [
-                    'quote.CR.BTCUSDT',
-                    'depth.CR.BTCUSDT',
-                    'candle.CR.BTCUSDT.1m',
-                    'trade.CR.ETHUSDT',
-                ],
-                'request_id' => 'r1',
-            ], JSON_UNESCAPED_SLASHES));
+            $subscriptions = [
+                ['quote.CR.BTCUSDT', 'q1'],
+                ['depth.CR.BTCUSDT', 'd1'],
+                ['candle.CR.BTCUSDT.1m', 'c1'],
+                ['trade.CR.BTCUSDT', 't1'],
+            ];
+            foreach ($subscriptions as [$topic, $requestId]) {
+                ws_send($fp, json_encode([
+                    'type' => 'subscribe',
+                    'topics' => [$topic],
+                    'request_id' => $requestId,
+                ], JSON_UNESCAPED_SLASHES));
+            }
             $subscribed = true;
         }
     }

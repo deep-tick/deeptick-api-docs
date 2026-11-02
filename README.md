@@ -100,8 +100,10 @@ K 线周期：`1m` `5m` `15m` `30m` `60m` `4h` `1d` `1w` `1M`。
 
 连接成功后先收到 `welcome`，再发送订阅。大约每 30 秒发一次 `ping`。大约 60 秒没有上行，连接会被关闭。
 
+一次 `subscribe` 只能包含同一种类型。下面这一条只订报价。盘口、K 线、逐笔要各发一条，混在一起整批返回 `4001`。
+
 ```json
-{"type":"subscribe","topics":["quote.CR.BTCUSDT","depth.US.AAPL","candle.CN.600519.SH.1m"],"request_id":"r1"}
+{"type":"subscribe","topics":["quote.CR.BTCUSDT","quote.US.AAPL"],"request_id":"r1"}
 ```
 
 ```json
@@ -137,6 +139,6 @@ python examples/python/websocket_example.py
 - 钥匙缺失或无效返回 `1001`。请求头的名字是 `deeptoken`，值是控制台复制的整串。
 - `/api/v1/quote` 一次只能传 1 个代码，传多个返回 `8005`。盘口和成交的参数名是 `symbol`，报价和 K 线是 `symbols`。
 - 报价不含买卖档。多档盘口用 `/api/v1/orderbook`。
-- 调用额度按套餐计算，错误码见 [文档第 7 章](./Deeptick行情API文档.md)。
+- 调用额度见 [文档第 7 章](./Deeptick行情API文档.md)，错误码见第 8 章。一次订阅只能是同一种行情类型。
 
 字段、错误码和限流以本文档和官网控制台为准。公开文档只保留对客接口。套餐额度以控制台当前方案为准。

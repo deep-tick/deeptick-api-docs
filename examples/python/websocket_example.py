@@ -13,11 +13,12 @@ import websocket
 
 TOKEN = os.environ.get("DEEPTICK_TOKEN", "your_api_key")
 URL = "wss://api.deeptick.cc/ws/v1"
-TOPICS = [
-    "quote.CR.BTCUSDT",
-    "depth.CR.BTCUSDT",
-    "candle.CR.BTCUSDT.1m",
-    "trade.CR.ETHUSDT",
+# 一次 subscribe 只能是同一种类型，所以按类型分开发送。标的用免费套餐可请求的 BTCUSDT.CR。
+SUBSCRIPTIONS = [
+    (["quote.CR.BTCUSDT"], "q1"),
+    (["depth.CR.BTCUSDT"], "d1"),
+    (["candle.CR.BTCUSDT.1m"], "c1"),
+    (["trade.CR.BTCUSDT"], "t1"),
 ]
 
 
@@ -30,11 +31,12 @@ def on_message(ws, message):
     kind = msg.get("type")
     print(kind, message)
     if kind == "welcome":
-        ws.send(json.dumps({
-            "type": "subscribe",
-            "topics": TOPICS,
-            "request_id": "r1",
-        }))
+        for topics, request_id in SUBSCRIPTIONS:
+            ws.send(json.dumps({
+                "type": "subscribe",
+                "topics": topics,
+                "request_id": request_id,
+            }))
     elif kind == "error":
         print("server error", msg.get("code"), msg.get("message"))
 
