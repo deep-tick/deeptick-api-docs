@@ -10,7 +10,7 @@ Low-latency market data for trading systems and quantitative apps. One integrati
 
 DeepTick provides global market data for developers, trading platforms, and research teams. China A-shares, Hong Kong, US stocks, forex, indices, metals, and crypto share one REST API and one WebSocket API, with the same fields and timestamps.
 
-The feed includes live snapshots, order-book depth, prints, ticks, and both live and historical candles. FX arrives at tick level. Crypto runs 24/7, with symbols normalized across venues. Signup includes a free quota so you can check the payload before upgrading. Data is for information only and is not investment advice.
+The feed includes live snapshots, order-book depth, prints, ticks, and both live and historical candles. FX arrives at tick level. Crypto runs 24/7, with symbols normalized across venues. The free plan can request only `AAPL.US`, `EURUSD.FX`, `BTCUSDT.CR`, `SPX.IDX`, `XAUUSD.MT`, and `XAGUSD.MT`. Anything else returns `4002`. Data is for information only and is not investment advice.
 
 Typical uses:
 
@@ -44,7 +44,7 @@ A success body has `"code": 0`:
 
 `s` is the symbol, `ld` is the last price, and `t` is the quote time in Unix milliseconds. Quotes do not include bid or ask. Use `/api/v1/orderbook` for the book.
 
-`GET /api/v1/time` needs no key and checks that the gateway is reachable.
+`GET /api/v1/time` needs no key and checks that the service is reachable.
 
 ---
 
@@ -135,4 +135,4 @@ python examples/python/websocket_example.py
 - Quotes have no bid or ask. The book is `/api/v1/orderbook`.
 - Quotas follow the plan. Error codes are in [chapter 7](./Deeptick行情API文档.md).
 
-Fields, error codes, and quotas follow chapters 1–8 of the reference and the website console.
+Fields, error codes, and quotas follow this document and the website console. The public document covers the customer API only. Plan limits follow the plans shown in the console.
