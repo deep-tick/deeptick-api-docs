@@ -11,3 +11,7 @@
 | 官网 | https://www.deeptick.cc |
 
 认证使用控制台复制的 API Key，请求头或握手参数名为 `deeptoken`。
+
+## 代码示例
+
+Python、Java、Go、PHP、Node.js 的 REST 与 WebSocket 示例在 [examples](./examples/README.md)。把 API Key 放到环境变量 `DEEPTICK_TOKEN` 后即可运行。
