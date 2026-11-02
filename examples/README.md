@@ -1,8 +1,6 @@
 # DeepTick 代码示例
 
-结构参考 [AllTick 官方示例仓库](https://github.com/AllTick-Official/alltick-realtime-forex-crypto-stock-tick-finance-websocket-api) 的 `example/` 目录：每种语言各有一份 REST 脚本和一份 WebSocket 脚本，可单独运行。
-
-接口以 [行情 API 文档](../Deeptick行情API文档.md) 为准，不是 AllTick 的协议。
+每种语言各有一份 REST 脚本和一份 WebSocket 脚本，可单独运行。接口以 [行情 API 文档](../Deeptick行情API文档.md) 为准。
 
 | 语言 | REST | WebSocket |
 | --- | --- | --- |
