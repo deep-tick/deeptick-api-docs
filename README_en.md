@@ -6,6 +6,20 @@ Low-latency market data for trading systems and quantitative apps. One integrati
 
 [Website](https://www.deeptick.cc) · [Field reference](./Deeptick行情API文档.md) (v3.8, Chinese)
 
+## About this project
+
+DeepTick provides global market data for developers, trading platforms, and research teams. China A-shares, Hong Kong, US stocks, forex, indices, metals, and crypto share one REST API and one WebSocket API, with the same fields and timestamps.
+
+The feed includes live snapshots, order-book depth, prints, ticks, and both live and historical candles. FX arrives at tick level. Crypto runs 24/7, with symbols normalized across venues. Signup includes a free quota so you can check the payload before upgrading. Data is for information only and is not investment advice.
+
+Typical uses:
+
+- **Quant trading.** Live quotes and historical candles for research, monitoring, and execution.
+- **Trading platforms.** A stable quote and depth stream for brokers, CFDs, and asset-management terminals.
+- **Research and AI.** Snapshots, prints, and candles for models and research tools.
+
+This repository is the integration kit: the v3.8 reference and runnable samples in Python, Java, Go, PHP, and Node.js.
+
 ---
 
 ## First quote
