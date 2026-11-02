@@ -6,7 +6,7 @@ Low-latency market data for trading systems and quantitative apps. One integrati
 
 [Website](https://www.deeptick.cc) · [Field reference](./Deeptick行情API文档.md) (v3.8, Chinese)
 
-## About this project
+## Introduction
 
 DeepTick provides global market data for developers, trading platforms, and research teams. China A-shares, Hong Kong, US stocks, forex, indices, metals, and crypto share one REST API and one WebSocket API, with the same fields and timestamps.
 
