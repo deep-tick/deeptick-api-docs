@@ -1,4 +1,4 @@
-module github.com/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api/examples/go
+module github.com/deep-tick/deeptick-quote-api/examples/go
 
 go 1.22
 

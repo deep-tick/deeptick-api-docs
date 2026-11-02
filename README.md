@@ -1,9 +1,9 @@
 > [中文](./README.md) | [English](./README_en.md)
 
-# DeepTick — 实时金融市场数据 API
+# DeepTick 行情数据 API
 
-[![Stars](https://img.shields.io/github/stars/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api?style=flat-square)](https://github.com/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api/stargazers)
-[![Forks](https://img.shields.io/github/forks/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api?style=flat-square)](https://github.com/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api/network/members)
+[![Stars](https://img.shields.io/github/stars/deep-tick/deeptick-quote-api?style=flat-square)](https://github.com/deep-tick/deeptick-quote-api/stargazers)
+[![Forks](https://img.shields.io/github/forks/deep-tick/deeptick-quote-api?style=flat-square)](https://github.com/deep-tick/deeptick-quote-api/network/members)
 [![API](https://img.shields.io/badge/API-v3.8-2ea44f?style=flat-square)](./Deeptick行情API文档.md)
 
 通过 REST 与 WebSocket 接入股票、外汇、加密货币、贵金属和指数行情。适合看板、策略信号和行情查询。
@@ -164,4 +164,4 @@ python examples/python/websocket_example.py
 ## 链接
 
 - 官网：https://www.deeptick.cc
-- 本仓库：https://github.com/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api
+- 本仓库：https://github.com/deep-tick/deeptick-quote-api

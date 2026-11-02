@@ -1,9 +1,9 @@
 > [中文](./README.md) | [English](./README_en.md)
 
-# DeepTick — Real-Time Financial Market Data API
+# DeepTick Market Data API
 
-[![Stars](https://img.shields.io/github/stars/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api?style=flat-square)](https://github.com/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api/stargazers)
-[![Forks](https://img.shields.io/github/forks/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api?style=flat-square)](https://github.com/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api/network/members)
+[![Stars](https://img.shields.io/github/stars/deep-tick/deeptick-quote-api?style=flat-square)](https://github.com/deep-tick/deeptick-quote-api/stargazers)
+[![Forks](https://img.shields.io/github/forks/deep-tick/deeptick-quote-api?style=flat-square)](https://github.com/deep-tick/deeptick-quote-api/network/members)
 [![API](https://img.shields.io/badge/API-v3.8-2ea44f?style=flat-square)](./Deeptick行情API文档.md)
 
 REST and WebSocket access to stocks, forex, crypto, metals, and indices. Use it for dashboards, signals, and snapshot queries.
@@ -143,4 +143,4 @@ Yes. Quotas follow the plan. See chapter 7 of the reference for the error codes.
 ## Links
 
 - Website: https://www.deeptick.cc
-- Repository: https://github.com/deep-tick/deeptick-realtime-forex-crypto-stock-tick-finance-websocket-api
+- Repository: https://github.com/deep-tick/deeptick-quote-api
