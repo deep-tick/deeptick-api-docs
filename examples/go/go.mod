@@ -1,4 +1,4 @@
-module github.com/deep-tick/deeptick-realtime-market-data-api/examples/go
+module github.com/deeptick-cc/deeptick-realtime-market-data-api/examples/go
 
 go 1.22
 
